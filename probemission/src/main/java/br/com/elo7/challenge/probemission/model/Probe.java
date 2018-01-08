@@ -41,7 +41,7 @@ public class Probe {
 		return y;
 	}
 	
-	public void RunCommand(String command) throws Exception {
+	public void RunCommand(String command) {
 		//command string clean up
 		command = command.toUpperCase().replaceAll(" ", "");
 		
@@ -51,23 +51,23 @@ public class Probe {
 				
 				switch(cmd) {
 					case 'L':
-						this.Rotate(Way.LEFT);
+						this.Rotate(Rotation.LEFT);
 						break;
 					case 'R':
-						this.Rotate(Way.RIGHT);
+						this.Rotate(Rotation.RIGHT);
 						break;
 					case 'M':
 						this.Move();
 				}
 			}
-			System.out.println(x + " " + y + " " + this.getCurrentDirection());
+			
 		} else {
-			throw new Exception("Invalid command!");
+			return; //invalid command
 		}
 	}
 	
-	public void Rotate(Way way) {
-		if(way.equals(Way.RIGHT)) {
+	public void Rotate(Rotation way) {
+		if(way.equals(Rotation.RIGHT)) {
 			currentDirectionIndex++;
 			if(currentDirectionIndex > dir.size() - 1)
 				currentDirectionIndex = 0;

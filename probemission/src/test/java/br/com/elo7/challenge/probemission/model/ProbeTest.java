@@ -12,18 +12,18 @@ class ProbeTest {
 		Probe p = new Probe(0, 0, Direction.NORTH);
 		assertEquals(p.getCurrentDirection(), Direction.NORTH);
 		
-		p.Rotate(Way.LEFT);
+		p.Rotate(Rotation.LEFT);
 		assertEquals(p.getCurrentDirection(), Direction.WEST);
 		
-		p.Rotate(Way.LEFT);
+		p.Rotate(Rotation.LEFT);
 		assertEquals(p.getCurrentDirection(), Direction.SOUTH);
 		
-		p.Rotate(Way.LEFT);
+		p.Rotate(Rotation.LEFT);
 		assertEquals(p.getCurrentDirection(), Direction.EAST);
 		
-		p.Rotate(Way.RIGHT);
-		p.Rotate(Way.RIGHT);
-		p.Rotate(Way.RIGHT);
+		p.Rotate(Rotation.RIGHT);
+		p.Rotate(Rotation.RIGHT);
+		p.Rotate(Rotation.RIGHT);
 		assertEquals(p.getCurrentDirection(), Direction.NORTH);
 	}
 	
@@ -35,15 +35,15 @@ class ProbeTest {
 		p.Move(); //north
 		assertTrue(p.getX() == 0 && p.getY() == -1);
 		
-		p.Rotate(Way.RIGHT); //east
+		p.Rotate(Rotation.RIGHT); //east
 		p.Move();
 		assertTrue(p.getX() == 1 && p.getY() == -1);
 		
-		p.Rotate(Way.RIGHT); //south
+		p.Rotate(Rotation.RIGHT); //south
 		p.Move();
 		assertTrue(p.getX() == 1 && p.getY() == 0);
 		
-		p.Rotate(Way.RIGHT); //west
+		p.Rotate(Rotation.RIGHT); //west
 		p.Move();
 		p.Move();
 		p.Move();
