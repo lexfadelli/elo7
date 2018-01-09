@@ -6,26 +6,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Probe {
-	private int x;
-	private int y;
+	private Position position;
 	
 	List<Direction> dir = new ArrayList<Direction>();
 	private Direction currentDirection;
-	private int currentDirectionIndex;
 	private Pattern commandRegexPattern; 
 	
-	public Probe(int x, int y, Direction direction) {
-		this.x = x;
-		this.y = y;
-		
-		dir.add(Direction.NORTH);
-		dir.add(Direction.EAST);
-		dir.add(Direction.SOUTH);
-		dir.add(Direction.WEST);
-		
+	public Probe(Position position, Direction direction) {
+		this.position = position;
 		currentDirection = direction;
-		currentDirectionIndex = 0;
-		
 		commandRegexPattern = Pattern.compile("[LRM]+");
 	}
 	
@@ -33,12 +22,8 @@ public class Probe {
 		return currentDirection;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
+	public Position getPosition() {
+		return position;
 	}
 	
 	public void RunCommand(String command) {
@@ -67,32 +52,22 @@ public class Probe {
 	}
 	
 	public void Rotate(Rotation way) {
-		if(way.equals(Rotation.RIGHT)) {
-			currentDirectionIndex++;
-			if(currentDirectionIndex > dir.size() - 1)
-				currentDirectionIndex = 0;
-		} else {
-			currentDirectionIndex--;
-			if(currentDirectionIndex < 0)
-				currentDirectionIndex = dir.size() -1;
-		}
-		
-		currentDirection = dir.get(currentDirectionIndex);
+		currentDirection = currentDirection.getNext(way);
 	}
 	
 	public void Move() {
 		switch(currentDirection) {
 			case NORTH:
-				y++;
+				this.position.setY(this.position.getY() + 1);
 				break;
 			case SOUTH:
-				y--;
+				this.position.setY(this.position.getY() - 1);
 				break;
 			case EAST:
-				x++;
+				this.position.setX(this.position.getX() + 1);
 				break;
 			case WEST:
-				x--;
+				this.position.setX(this.position.getX() - 1);
 				break;
 		}
 	}

@@ -48,21 +48,8 @@ public class App
 					int y = Integer.parseInt(m.group(2));
 					
 					String dir = m.group(3);
-					Direction d = null;
-					switch(dir) {
-						case "N":
-							d = Direction.NORTH;
-							break;
-						case "W":
-							d = Direction.WEST;
-							break;
-						case "S":
-							d = Direction.SOUTH;
-							break;
-						case "E":
-							d = Direction.EAST;
-							break;
-					}
+					Direction d = Direction.getByCode(dir);
+
 					currentProbe = controller.addProbe(x, y, d);
 					if(currentProbe == null) {
 						System.out.println("command failed!");

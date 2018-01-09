@@ -5,24 +5,18 @@ import java.util.List;
 
 public class Plane {
 	private List<Probe> probeList;
-	private int maxY;
-	private int maxX;
+	private Position size;
 
-	public int getMaxY() {
-		return maxY;
-	}
-
-	public int getMaxX() {
-		return maxX;
+	public Position getSize() {
+		return size;
 	}
 
 	public List<Probe> getProbeList() {
 		return probeList;
 	}
 	
-	public Plane(int maxY, int maxX) {
-		this.maxX = maxX;
-		this.maxY = maxY;
+	public Plane(Position size) {
 		probeList = new ArrayList<Probe>();
+		this.size = size;
 	}
 }

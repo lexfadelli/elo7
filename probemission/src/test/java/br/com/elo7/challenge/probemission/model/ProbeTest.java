@@ -9,7 +9,7 @@ class ProbeTest {
 
 	@Test
 	void rotateTest() {
-		Probe p = new Probe(0, 0, Direction.NORTH);
+		Probe p = new Probe(new Position(0, 0), Direction.NORTH);
 		assertEquals(p.getCurrentDirection(), Direction.NORTH);
 		
 		p.Rotate(Rotation.LEFT);
@@ -29,40 +29,45 @@ class ProbeTest {
 	
 	@Test
 	void moveTest() throws Exception {
-		Probe p = new Probe(0, 0, Direction.NORTH);
-		assertTrue(p.getX() == 0 && p.getY() == 0);
+		Probe p = new Probe(new Position(0,0), Direction.NORTH);
+		assertTrue(p.getPosition().getX() == 0 && p.getPosition().getY() == 0);
 		
 		p.Move(); //north
-		assertTrue(p.getX() == 0 && p.getY() == -1);
+		assertTrue(p.getPosition().getX() == 0 && p.getPosition().getY() == 1);
 		
 		p.Rotate(Rotation.RIGHT); //east
 		p.Move();
-		assertTrue(p.getX() == 1 && p.getY() == -1);
+		assertTrue(p.getPosition().getX() == 1 && p.getPosition().getY() == 1);
 		
 		p.Rotate(Rotation.RIGHT); //south
 		p.Move();
-		assertTrue(p.getX() == 1 && p.getY() == 0);
+		assertTrue(p.getPosition().getX() == 1 && p.getPosition().getY() == 0);
 		
 		p.Rotate(Rotation.RIGHT); //west
 		p.Move();
 		p.Move();
 		p.Move();
-		assertTrue(p.getX() == -2 && p.getY() == 0);
+		assertTrue(p.getPosition().getX() == -2 && p.getPosition().getY() == 0);
 	}
 	
 	@Test
 	void runCommandTest() throws Exception {
-		Probe p = new Probe(0, 0, Direction.NORTH);
-
-		try {
-			p.RunCommand("LMRX");
-		} catch (Exception e) {
-		}
+		Probe p = new Probe(new Position(1, 2), Direction.NORTH);
+		p.RunCommand("LMLMLMLMM");
+		assertTrue(p.getPosition().getX() == 1 && p.getPosition().getY() == 3 && p.getCurrentDirection() == Direction.NORTH);
+		
+		p = new Probe(new Position(3, 3), Direction.EAST);
+		p.RunCommand("MMRMMRMRRM");
+		assertTrue(p.getPosition().getX() == 5 && p.getPosition().getY() == 1 && p.getCurrentDirection() == Direction.EAST);
+		
+		p = new Probe(new Position(0, 0), Direction.NORTH);
+		p.RunCommand("LMRX"); //invalid command, ignore
+		assertTrue(p.getPosition().getX() == 0 && p.getPosition().getY() == 0);
 		
 		p.RunCommand("LMLMLMLMM"); //moving on each direction, and north again.
-		assertTrue(p.getX() == 0 && p.getY() == -1);
+		assertTrue(p.getPosition().getX() == 0 && p.getPosition().getY() == 1);
 		
 		p.RunCommand("  R r  M     "); //returning to initial position (with some spaces in the command line)
-		assertTrue(p.getX() == 0 && p.getY() == 0);
+		assertTrue(p.getPosition().getX() == 0 && p.getPosition().getY() == 0);
 	}	
 }
