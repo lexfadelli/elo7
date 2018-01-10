@@ -1,5 +1,7 @@
 package br.com.elo7.challenge.probemission.model;
 
+import java.util.Objects;
+
 public class Position {
 	private int x;
 	private int y;
@@ -21,5 +23,21 @@ public class Position {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+	    if (this == o)
+	        return true;
+	    
+	    if (o == null)
+	        return false;
+
+	    if (getClass() != o.getClass())
+	        return false;
+	    
+	    Position p = (Position) o;
+	    return Objects.equals(x, p.x)
+	            && Objects.equals(y, p.y);
 	}
 }

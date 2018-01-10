@@ -8,6 +8,7 @@ import br.com.elo7.challenge.probemission.model.Probe;
 public class MissionController implements MissionControllerInterface {
 	private Plane plane;
 	
+	
 	public void createPlane(int maxX, int maxY) {
 		this.plane = new Plane(new Position(maxX, maxY));
 	}

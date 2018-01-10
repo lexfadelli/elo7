@@ -15,6 +15,11 @@ public enum Direction {
 		return code;
 	}
 	
+	/***
+	 * returns next direction according to the rotation
+	 * @param way
+	 * @return
+	 */
 	public Direction getNext(Rotation way) {
 		int nextDegrees;
 		
