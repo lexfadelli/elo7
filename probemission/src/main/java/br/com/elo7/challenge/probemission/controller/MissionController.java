@@ -26,7 +26,7 @@ public class MissionController implements MissionControllerInterface {
 	}
 
 	public void controlProbe(Probe probe, String probeCommand) {
-		probe.RunCommand(probeCommand);
+		probe.runCommand(probeCommand);
 	}
 
 	public String getProbeStatus(Probe probe) {

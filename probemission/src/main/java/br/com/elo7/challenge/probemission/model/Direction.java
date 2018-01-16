@@ -1,5 +1,10 @@
 package br.com.elo7.challenge.probemission.model;
 
+/***
+ * Enum that represents the cardinal points
+ * @author lexfadelli
+ *
+ */
 public enum Direction {
 	NORTH("N", 0), SOUTH("S", 180), EAST("E", 90), WEST("W", 270);
     
@@ -16,18 +21,28 @@ public enum Direction {
 	}
 	
 	/***
-	 * returns next direction according to the rotation
+	 * returns the next direction to the left
+	 * @return
+	 */
+	public Direction getNextLeft() {
+		return this.getNext(-90);
+	}
+	
+	/***
+	 * returns the next direction to the right
+	 * @return
+	 */
+	public Direction getNextRight() {
+		return this.getNext(90);
+	}
+	
+	/***
+	 * returns next direction according to the rotation degree
 	 * @param way
 	 * @return
 	 */
-	public Direction getNext(Rotation way) {
-		int nextDegrees;
-		
-		if(way.equals(Rotation.RIGHT)) {
-			nextDegrees = this.degrees + 90;
-		} else {
-			nextDegrees = this.degrees - 90;
-		}
+	private Direction getNext(int degrees) {
+		int nextDegrees = this.degrees + degrees;
 		
 		if(nextDegrees < 0) {
 			nextDegrees = nextDegrees + 360;

@@ -3,6 +3,11 @@ package br.com.elo7.challenge.probemission.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * Class that represents a 2D plane
+ * @author lexfadelli
+ *
+ */
 public class Plane {
 	private List<Probe> probeList;
 	private Position size;

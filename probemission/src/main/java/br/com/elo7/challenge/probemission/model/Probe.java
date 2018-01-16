@@ -2,20 +2,22 @@ package br.com.elo7.challenge.probemission.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/***
+ * Class that represents the probe
+ * @author lexfadelli
+ *
+ */
 public class Probe {
 	private Position position;
 	
 	List<Direction> dir = new ArrayList<Direction>();
 	private Direction currentDirection;
-	private Pattern commandRegexPattern; 
+	
 	
 	public Probe(Position position, Direction direction) {
 		this.position = position;
 		currentDirection = direction;
-		commandRegexPattern = Pattern.compile("[LRM]+");
 	}
 	
 	public Direction getCurrentDirection() {
@@ -26,36 +28,40 @@ public class Probe {
 		return position;
 	}
 	
-	public void RunCommand(String command) {
-		//command string clean up
-		command = command.toUpperCase().replaceAll(" ", "");
-		
-		Matcher m = commandRegexPattern.matcher(command);
-		if(m.matches()) {
-			for (char cmd : command.toCharArray()) {
-				
+	/***
+	 * Executes the commandline
+	 * @param command
+	 */
+	public void runCommand(String command) {
+		List<MovementCommand> commandChain = MovementCommand.parse(command);
+
+		if(commandChain != null) {
+			for (MovementCommand cmd : commandChain) {
 				switch(cmd) {
-					case 'L':
-						this.Rotate(Rotation.LEFT);
+					case ROTATE_lEFT:
+						this.rotateLeft();
 						break;
-					case 'R':
-						this.Rotate(Rotation.RIGHT);
+					case ROTATE_RIGHT:
+						this.rotateRight();
 						break;
-					case 'M':
-						this.Move();
+					case MOVE:
+						this.move();
 				}
 			}
-			
 		} else {
 			return; //invalid command
 		}
 	}
 	
-	public void Rotate(Rotation way) {
-		currentDirection = currentDirection.getNext(way);
+	public void rotateLeft() {
+		currentDirection = currentDirection.getNextLeft();
 	}
 	
-	public void Move() {
+	public void rotateRight() {
+		currentDirection = currentDirection.getNextRight();
+	}
+	
+	public void move() {
 		switch(currentDirection) {
 			case NORTH:
 				this.position.setY(this.position.getY() + 1);

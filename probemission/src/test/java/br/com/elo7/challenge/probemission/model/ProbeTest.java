@@ -12,18 +12,18 @@ class ProbeTest {
 		Probe p = new Probe(new Position(0, 0), Direction.NORTH);
 		assertEquals(p.getCurrentDirection(), Direction.NORTH);
 		
-		p.Rotate(Rotation.LEFT);
+		p.rotateLeft();
 		assertEquals(p.getCurrentDirection(), Direction.WEST);
 		
-		p.Rotate(Rotation.LEFT);
+		p.rotateLeft();
 		assertEquals(p.getCurrentDirection(), Direction.SOUTH);
 		
-		p.Rotate(Rotation.LEFT);
+		p.rotateLeft();
 		assertEquals(p.getCurrentDirection(), Direction.EAST);
 		
-		p.Rotate(Rotation.RIGHT);
-		p.Rotate(Rotation.RIGHT);
-		p.Rotate(Rotation.RIGHT);
+		p.rotateRight();
+		p.rotateRight();
+		p.rotateRight();
 		assertEquals(p.getCurrentDirection(), Direction.NORTH);
 	}
 	
@@ -31,42 +31,42 @@ class ProbeTest {
 	void moveTest() throws Exception {
 		Probe p = new Probe(new Position(0,0), Direction.NORTH);
 		
-		p.Move(); //north
+		p.move(); //north
 		assertEquals(new Position(0, 1), p.getPosition());
 		
-		p.Rotate(Rotation.RIGHT); //east
-		p.Move();
+		p.rotateRight(); //east
+		p.move();
 		assertEquals(new Position(1, 1), p.getPosition());
 		
-		p.Rotate(Rotation.RIGHT); //south
-		p.Move();
+		p.rotateRight(); //south
+		p.move();
 		assertEquals(new Position(1, 0), p.getPosition());
 		
-		p.Rotate(Rotation.RIGHT); //west
-		p.Move();
-		p.Move();
-		p.Move();
+		p.rotateRight(); //west
+		p.move();
+		p.move();
+		p.move();
 		assertEquals(new Position(-2, 0), p.getPosition());
 	}
 	
 	@Test
 	void runCommandTest() throws Exception {
 		Probe p = new Probe(new Position(1, 2), Direction.NORTH);
-		p.RunCommand("LMLMLMLMM");
+		p.runCommand("LMLMLMLMM");
 		assertTrue(p.getPosition().equals(new Position(1,3)) && p.getCurrentDirection() == Direction.NORTH);
 		
 		p = new Probe(new Position(3, 3), Direction.EAST);
-		p.RunCommand("MMRMMRMRRM");
+		p.runCommand("MMRMMRMRRM");
 		assertTrue(p.getPosition().equals(new Position(5,1)) && p.getCurrentDirection() == Direction.EAST);
 		
 		p = new Probe(new Position(0, 0), Direction.NORTH);
-		p.RunCommand("LMRX"); //invalid command, ignore
+		p.runCommand("LMRX"); //invalid command, ignore
 		assertTrue(p.getPosition().equals(new Position(0, 0)));
 		
-		p.RunCommand("LMLMLMLMM"); //moving on each direction, and north again.
+		p.runCommand("LMLMLMLMM"); //moving on each direction, and north again.
 		assertTrue(p.getPosition().equals(new Position(0, 1)));
 		
-		p.RunCommand("  R r  M     "); //returning to initial position (with some spaces in the command line)
+		p.runCommand("  R r  M     "); //returning to initial position (with some spaces in the command line)
 		assertTrue(p.getPosition().equals(new Position(0, 0)));
 	}	
 }

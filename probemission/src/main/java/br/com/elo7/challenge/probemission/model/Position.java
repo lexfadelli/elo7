@@ -2,6 +2,11 @@ package br.com.elo7.challenge.probemission.model;
 
 import java.util.Objects;
 
+/***
+ * Class that represents the 2D position of an object in a plane
+ * @author lexfadelli
+ *
+ */
 public class Position {
 	private int x;
 	private int y;

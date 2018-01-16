@@ -8,9 +8,9 @@ class DirectionTest {
 
 	@Test
 	void getNextTest() {
-		assertEquals(Direction.NORTH.getNext(Rotation.RIGHT), Direction.EAST);
-		assertEquals(Direction.NORTH.getNext(Rotation.LEFT), Direction.WEST);
-		assertEquals(Direction.WEST.getNext(Rotation.RIGHT), Direction.NORTH);
-		assertEquals(Direction.SOUTH.getNext(Rotation.RIGHT), Direction.WEST);
+		assertEquals(Direction.NORTH.getNextRight(), Direction.EAST);
+		assertEquals(Direction.NORTH.getNextLeft(), Direction.WEST);
+		assertEquals(Direction.WEST.getNextRight(), Direction.NORTH);
+		assertEquals(Direction.SOUTH.getNextRight(), Direction.WEST);
 	}
 }
